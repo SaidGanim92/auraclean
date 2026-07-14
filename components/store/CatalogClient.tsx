@@ -27,6 +27,13 @@ export function CatalogClient({ products, isAdmin = false }: { products: Product
   }, [requestedCategory, products]);
 
   const featured = useMemo(() => products.filter((p) => p.featured).slice(0, 8), [products]);
+  const featuredIds = useMemo(() => new Set(featured.map((p) => p.id)), [featured]);
+
+  // ב"הכל" — מוצרים מומלצים כבר למעלה; לא מציגים אותם שוב בקטלוג
+  const catalogProducts = useMemo(() => {
+    if (activeCat !== 'all') return products;
+    return products.filter((p) => !featuredIds.has(p.id));
+  }, [products, activeCat, featuredIds]);
 
   // קטגוריות ייחודיות (מפתח עברי יציב)
   const categories = useMemo(() => {
@@ -43,7 +50,7 @@ export function CatalogClient({ products, isAdmin = false }: { products: Product
   // סינון
   const filtered = useMemo(() => {
     const term = requestedSearch.trim().toLowerCase();
-    return products.filter((p) => {
+    return catalogProducts.filter((p) => {
       if (activeCat !== 'all' && catKey(p) !== activeCat) return false;
       if (!term) return true;
       const hay = [p.name_he, p.name_ar, p.desc_he, p.desc_ar, p.category_he, p.category_ar]
@@ -51,7 +58,7 @@ export function CatalogClient({ products, isAdmin = false }: { products: Product
         .toLowerCase();
       return hay.includes(term);
     });
-  }, [products, activeCat, requestedSearch]);
+  }, [catalogProducts, activeCat, requestedSearch]);
 
   // קיבוץ לקטגוריות
   const groups = useMemo(() => {
@@ -104,7 +111,9 @@ export function CatalogClient({ products, isAdmin = false }: { products: Product
       </div>
 
       <div className="container">
-        <div className="section-head mt-3"><h2>{t('catalog_title')}</h2></div>
+        {filtered.length > 0 && (
+          <div className="section-head mt-3"><h2>{t('catalog_title')}</h2></div>
+        )}
         {products.length === 0 ? (
           <div className="status-msg">{t('empty_catalog')}</div>
         ) : filtered.length === 0 ? (
