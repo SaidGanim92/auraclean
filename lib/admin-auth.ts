@@ -59,14 +59,17 @@ export async function requireAdmin() {
 
 /** בדיקה שקטה (ל-Route Handlers) — מחזיר true/false ללא redirect */
 export async function isAdminRequest(): Promise<boolean> {
-  if (isDemoMode()) return true;
+  try {
+    if (isDemoMode()) return true;
+    if (!isSupabaseConfigured() || !isAdminEmailConfigured()) return false;
 
-  if (!isSupabaseConfigured() || !isAdminEmailConfigured()) return false;
-
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) return false;
-  return isAuthorizedAdmin(user.email);
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) return false;
+    return isAuthorizedAdmin(user.email);
+  } catch {
+    return false;
+  }
 }

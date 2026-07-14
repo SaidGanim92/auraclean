@@ -66,7 +66,10 @@ create trigger products_updated_at
 alter table public.products enable row level security;
 
 -- תצוגה ציבורית — ללא cost_ref, source_url, stock_qty
-create or replace view public.products_public as
+drop view if exists public.products_public;
+create view public.products_public
+with (security_invoker = false)
+as
 select
   id, sku, barcode, name_he, name_ar, category_he, category_ar,
   price, sale_price, on_sale, desc_he, desc_ar, images,

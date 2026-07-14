@@ -20,52 +20,57 @@ function readClient() {
 }
 
 export async function getPublishedProducts(): Promise<Product[]> {
-  const supabase = readClient();
-  if (!supabase) {
-    if (isDevFallback()) {
-      console.warn('AURA CLEAN: Supabase לא הוגדר — נטען קטלוג הדגמה. מלא את .env.local.');
-      return BACKUP_PRODUCTS;
+  try {
+    const supabase = readClient();
+    if (!supabase) {
+      if (isDevFallback()) {
+        console.warn('AURA CLEAN: Supabase לא הוגדר — נטען קטלוג הדגמה. מלא את .env.local.');
+        return BACKUP_PRODUCTS;
+      }
+      return [];
     }
-    return [];
-  }
-  let { data, error } = await supabase
-    .from(PUBLIC_TABLE)
-    .select(PUBLIC_PRODUCT_COLUMNS)
-    .order('featured', { ascending: false })
-    .order('created_at', { ascending: false });
-
-  // אם עמודה חסרה במסד (למשל barcode) — נסה שוב בלי עמודות אופציונליות
-  if (error && /column|schema cache|products_public/i.test(error.message)) {
-    const fallbackCols = PUBLIC_PRODUCT_COLUMNS.split(',').filter((c) => c !== 'barcode').join(',');
-    const retry = await supabase
+    let { data, error } = await supabase
       .from(PUBLIC_TABLE)
-      .select(fallbackCols)
+      .select(PUBLIC_PRODUCT_COLUMNS)
       .order('featured', { ascending: false })
       .order('created_at', { ascending: false });
-    data = retry.data;
-    error = retry.error;
-    // אם התצוגה לא קיימת — נסה products עם עמודות ציבוריות בלבד (תאימות לאחור)
-    if (error && /products_public|relation.*does not exist/i.test(error.message)) {
-      const legacy = await supabase
-        .from('products')
-        .select(PUBLIC_PRODUCT_COLUMNS)
-        .eq('published', true)
+
+    // אם עמודה חסרה במסד (למשל barcode) — נסה שוב בלי עמודות אופציונליות
+    if (error && /column|schema cache|products_public/i.test(error.message)) {
+      const fallbackCols = PUBLIC_PRODUCT_COLUMNS.split(',').filter((c) => c !== 'barcode').join(',');
+      const retry = await supabase
+        .from(PUBLIC_TABLE)
+        .select(fallbackCols)
         .order('featured', { ascending: false })
         .order('created_at', { ascending: false });
-      data = legacy.data;
-      error = legacy.error;
+      data = retry.data;
+      error = retry.error;
+      // אם התצוגה לא קיימת — נסה products עם עמודות ציבוריות בלבד (תאימות לאחור)
+      if (error && /products_public|relation.*does not exist/i.test(error.message)) {
+        const legacy = await supabase
+          .from('products')
+          .select(PUBLIC_PRODUCT_COLUMNS)
+          .eq('published', true)
+          .order('featured', { ascending: false })
+          .order('created_at', { ascending: false });
+        data = legacy.data;
+        error = legacy.error;
+      }
     }
-  }
 
-  if (error) {
-    console.warn('AURA CLEAN: קריאת מוצרים נכשלה.', error.message);
-    if (isDevFallback()) return BACKUP_PRODUCTS;
-    return [];
+    if (error) {
+      console.warn('AURA CLEAN: קריאת מוצרים נכשלה.', error.message);
+      if (isDevFallback()) return BACKUP_PRODUCTS;
+      return [];
+    }
+    if (!data?.length) {
+      console.warn('AURA CLEAN: אין מוצרים מפורסמים במסד (published=true).');
+    }
+    return (data as unknown as Product[]) || [];
+  } catch (err) {
+    console.warn('AURA CLEAN: שגיאה בטעינת מוצרים.', err);
+    return isDevFallback() ? BACKUP_PRODUCTS : [];
   }
-  if (!data?.length) {
-    console.warn('AURA CLEAN: אין מוצרים מפורסמים במסד (published=true).');
-  }
-  return (data as unknown as Product[]) || [];
 }
 
 export async function getProductById(id: string): Promise<Product | null> {

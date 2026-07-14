@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
 import { Providers } from '@/components/providers/Providers';
+import { getMetadataBase } from '@/lib/site-url';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
+  metadataBase: getMetadataBase(),
   title: 'AURA CLEAN · מוצרי ניקיון במאגר',
   description:
     'AURA CLEAN — חנות מוצרי ניקיון במאגר. קטלוג חומרי ניקוי, כלים ואביזרים. הזמנה מהירה בוואטסאפ, משלוח מקומי.',
