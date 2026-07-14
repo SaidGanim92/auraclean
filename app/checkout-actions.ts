@@ -9,6 +9,7 @@ import type { Lang, TKey } from '@/lib/i18n/dict';
 
 export interface CheckoutLineInput {
   id: string;
+  sku?: string;
   qty: number;
 }
 
@@ -31,11 +32,12 @@ export async function validateCheckoutAndBuildUrl(
 
   const catalog = await getPublishedProducts();
   const byId = new Map(catalog.map((p) => [p.id, p]));
+  const bySku = new Map(catalog.map((p) => [p.sku, p]));
   const validated: CartItem[] = [];
 
   for (const line of lines) {
     const qty = Math.min(99, Math.max(1, Math.round(Number(line.qty) || 1)));
-    const p = byId.get(line.id);
+    const p = byId.get(line.id) ?? (line.sku ? bySku.get(line.sku) : undefined);
     if (!p) return { ok: false, error: labels.err_product_unavailable || 'מוצר לא זמין' };
     if (!p.available) return { ok: false, error: `${p.name_he} — ${labels.err_out_of_stock || 'אזל מהמלאי'}` };
 

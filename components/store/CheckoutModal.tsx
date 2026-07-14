@@ -47,20 +47,31 @@ export function CheckoutModal() {
     setErrors(errs);
     if (Object.keys(errs).length) return;
 
+    // חייב לפתוח חלון *לפני* await — אחרת הדפדפן חוסם popup (אין "לחיצת משתמש")
+    const whatsappWindow = window.open('about:blank', '_blank');
+
     setSubmitting(true);
     try {
       const result = await validateCheckoutAndBuildUrl(
-        items.map((i) => ({ id: i.id, qty: i.qty })),
+        items.map((i) => ({ id: i.id, sku: i.sku, qty: i.qty })),
         { name, phone, address, notes, payment: payment as PaymentMethod },
         lang,
         I18N[lang]
       );
       if (!result.ok) {
+        whatsappWindow?.close();
         setErrors({ form: result.error });
         return;
       }
-      window.open(result.data.whatsappUrl, '_blank');
+      const url = result.data.whatsappUrl;
+      if (whatsappWindow && !whatsappWindow.closed) {
+        whatsappWindow.location.href = url;
+      } else {
+        // fallback: ניווט באותו טאב (עובד גם במובייל → אפליקציית וואטסאפ)
+        window.location.href = url;
+      }
     } catch {
+      whatsappWindow?.close();
       setErrors({ form: t('err_checkout') });
     } finally {
       setSubmitting(false);
