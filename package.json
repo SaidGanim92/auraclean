@@ -1,0 +1,30 @@
+{
+  "name": "aura-clean",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AURA CLEAN — חנות מוצרי ניקיון דו-לשונית (עברית + ערבית) עם Admin וייבוא מספקים",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "tsx --test tests/*.test.ts"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.45.4",
+    "cheerio": "^1.0.0",
+    "next": "^15.0.3",
+    "papaparse": "^5.5.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "@types/papaparse": "^5.5.2",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "tsx": "^4.23.0",
+    "typescript": "^5.6.3"
+  }
+}

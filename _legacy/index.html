@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA CLEAN · מוצרי ניקיון במאגר</title>
+  <meta name="description" content="AURA CLEAN — חנות מוצרי ניקיון במאגר. קטלוג חומרי ניקוי, כלים ואביזרים. הזמנה מהירה בוואטסאפ, משלוח מקומי.">
+
+  <!-- Open Graph / שיתוף -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AURA CLEAN · מוצרי ניקיון במאגר">
+  <meta property="og:description" content="קטלוג מוצרי ניקיון — הזמנה בוואטסאפ, משלוח בתוך מאגר.">
+  <meta property="og:image" content="images/logo.png">
+  <meta name="theme-color" content="#5B93D6">
+
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <!-- גופנים: Assistant (עברית) + Cairo (ערבית) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a href="#main" class="skip-link" data-i18n="skip_to_content">דלג לתוכן הראשי</a>
+
+  <!-- רקע בועות סבון -->
+  <div class="bubbles" aria-hidden="true">
+    <span class="bubble" style="inset-inline-start:6%;  width:38px; height:38px; animation-duration:19s; animation-delay:0s"></span>
+    <span class="bubble" style="inset-inline-start:16%; width:64px; height:64px; animation-duration:24s; animation-delay:3s"></span>
+    <span class="bubble" style="inset-inline-start:28%; width:26px; height:26px; animation-duration:16s; animation-delay:6s"></span>
+    <span class="bubble" style="inset-inline-start:40%; width:50px; height:50px; animation-duration:22s; animation-delay:1s"></span>
+    <span class="bubble" style="inset-inline-start:52%; width:34px; height:34px; animation-duration:18s; animation-delay:8s"></span>
+    <span class="bubble" style="inset-inline-start:63%; width:72px; height:72px; animation-duration:25s; animation-delay:4s"></span>
+    <span class="bubble" style="inset-inline-start:74%; width:30px; height:30px; animation-duration:17s; animation-delay:10s"></span>
+    <span class="bubble" style="inset-inline-start:83%; width:56px; height:56px; animation-duration:23s; animation-delay:2s"></span>
+    <span class="bubble" style="inset-inline-start:90%; width:40px; height:40px; animation-duration:20s; animation-delay:7s"></span>
+    <span class="bubble" style="inset-inline-start:47%; width:22px; height:22px; animation-duration:15s; animation-delay:12s"></span>
+    <span class="bubble" style="inset-inline-start:34%; width:60px; height:60px; animation-duration:26s; animation-delay:9s"></span>
+    <span class="bubble" style="inset-inline-start:70%; width:44px; height:44px; animation-duration:21s; animation-delay:5s"></span>
+  </div>
+
+  <!-- כותרת -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <img src="images/logo.png" alt="AURA CLEAN">
+        <span class="brand-name">
+          <span class="en">AURA CLEAN</span>
+          <span class="local" data-i18n="brand_local">אורה קלין · מוצרי ניקיון</span>
+        </span>
+      </a>
+      <div class="header-spacer"></div>
+      <div class="header-actions">
+        <div class="lang-switch" role="group" aria-label="בחירת שפה">
+          <button type="button" data-lang-btn="he">עברית</button>
+          <button type="button" data-lang-btn="ar">العربية</button>
+        </div>
+        <button type="button" class="icon-btn" data-open-cart data-i18n-attr="aria-label:open_cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2 3h3l2.4 12.3a1 1 0 0 0 1 .7h9.3a1 1 0 0 0 1-.8L21 7H6"/></svg>
+          <span class="cart-count" data-cart-count hidden>0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="container">
+      <!-- Hero -->
+      <section class="hero">
+        <h1 data-i18n="hero_title">מוצרי ניקיון איכותיים — עד הבית</h1>
+        <p data-i18n="hero_sub">קטלוג מלא של חומרי ניקוי, כלים ואביזרים.</p>
+        <a href="#shop" class="btn btn-outline btn-lg" data-i18n="hero_cta">לצפייה בקטלוג</a>
+        <div class="hero-badges">
+          <span>🚚 <span data-i18n="hero_badge_delivery"></span></span>
+          <span>✅ <span data-i18n="hero_badge_nomin"></span></span>
+          <span>💳 <span data-i18n="hero_badge_pay"></span></span>
+        </div>
+      </section>
+
+      <!-- סרט מותגים נע -->
+      <section class="brands" aria-labelledby="brands-title">
+        <h2 id="brands-title" data-i18n="brands_title">המותגים שאנחנו עובדים איתם</h2>
+        <div class="marquee">
+          <div class="marquee-track">
+            <!-- קבוצה ראשונה (ברוחב מסך מלא) -->
+            <div class="marquee-group">
+              <img class="brand-logo" src="images/brand-touch.png" alt="טאצ'" loading="lazy">
+              <img class="brand-logo" src="images/brand-sag.png" alt="SAG" loading="lazy">
+              <img class="brand-logo" src="images/brand-tiroler.png" alt="טירולר" loading="lazy">
+              <img class="brand-logo" src="images/brand-yaakobi.png" alt="יעקובי" loading="lazy">
+            </div>
+            <!-- שכפול זהה ללולאה חלקה ואינסופית (aria-hidden) -->
+            <div class="marquee-group" aria-hidden="true">
+              <img class="brand-logo" src="images/brand-touch.png" alt="" loading="lazy">
+              <img class="brand-logo" src="images/brand-sag.png" alt="" loading="lazy">
+              <img class="brand-logo" src="images/brand-tiroler.png" alt="" loading="lazy">
+              <img class="brand-logo" src="images/brand-yaakobi.png" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- מוצרים מומלצים -->
+      <section class="section" id="featured-section" hidden>
+        <div class="section-head"><h2 data-i18n="featured_title">מוצרים מומלצים</h2></div>
+        <div id="featured"></div>
+      </section>
+    </div>
+
+    <!-- סרגל קטגוריות דביק + חיפוש -->
+    <div class="catalog-toolbar" id="shop">
+      <div class="container">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+          <label for="search-input" class="visually-hidden" data-i18n="search_placeholder">חיפוש מוצר</label>
+          <input id="search-input" type="search" data-i18n-attr="placeholder:search_placeholder" autocomplete="off">
+        </div>
+        <div class="category-bar" id="category-bar" role="group" aria-label="קטגוריות"></div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="section-head mt-3"><h2 data-i18n="catalog_title">הקטלוג שלנו</h2></div>
+      <div id="catalog-list"><div id="catalog"></div></div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-col footer-brand">
+        <img src="images/logo.png" alt="AURA CLEAN">
+        <p data-i18n="footer_about">חנות מוצרי ניקיון במאגר.</p>
+        <div class="footer-actions">
+          <div class="lang-switch" role="group" aria-label="בחירת שפה">
+            <button type="button" data-lang-btn="he">עברית</button>
+            <button type="button" data-lang-btn="ar">العربية</button>
+          </div>
+          <a class="btn btn-whatsapp" href="https://wa.me/972502073111" target="_blank" rel="noopener" data-i18n="footer_quick_order">הזמנה מהירה בוואטסאפ</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h3 data-i18n="footer_links_title">מידע ומדיניות</h3>
+        <ul>
+          <li><a href="pages/terms.html" data-i18n="link_terms">תקנון</a></li>
+          <li><a href="pages/privacy.html" data-i18n="link_privacy">מדיניות פרטיות</a></li>
+          <li><a href="pages/accessibility.html" data-i18n="link_accessibility">הצהרת נגישות</a></li>
+          <li><a href="pages/shipping.html" data-i18n="link_shipping">משלוחים והחזרות</a></li>
+          <li><a href="pages/contact.html" data-i18n="link_contact">צור קשר</a></li>
+          <li><button type="button" class="link-btn" data-cookie-settings data-i18n="cookie_settings">הגדרות עוגיות</button></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3 data-i18n="footer_contact_title">יצירת קשר</h3>
+        <ul class="footer-contact">
+          <li>📞 <a href="tel:0502073111" dir="ltr">050-2073111</a></li>
+          <li>💬 <a href="https://wa.me/972502073111" target="_blank" rel="noopener" dir="ltr">050-2073111</a></li>
+          <li>✉️ <a href="mailto:sagroup050@gmail.com" dir="ltr">sagroup050@gmail.com</a></li>
+          <li>📍 מאגר / المغار</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> AURA CLEAN · <span data-i18n="rights">כל הזכויות שמורות</span></span>
+    </div>
+  </footer>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/consent.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/accessibility.js"></script>
+  <script src="js/app.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
